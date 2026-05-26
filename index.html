@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convite</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8dfe8;
+      color: #2b2024;
+      font-family: Arial, sans-serif;
+    }
+
+    main {
+      width: min(90vw, 620px);
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0 0 32px;
+      font-size: clamp(34px, 8vw, 62px);
+      font-weight: 700;
+    }
+
+    .buttons {
+      position: relative;
+      min-height: 120px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 14px 28px;
+      font-size: 22px;
+      font-weight: 700;
+      box-shadow: 0 8px 20px rgba(43, 32, 36, 0.15);
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+    }
+
+    #yesButton {
+      background: #ff477e;
+      color: #fff;
+      cursor: pointer;
+      margin-right: 18px;
+    }
+
+    #noButton {
+      position: absolute;
+      background: #fff;
+      color: #2b2024;
+      cursor: default;
+      user-select: none;
+    }
+
+    .message {
+      font-size: clamp(30px, 7vw, 56px);
+      line-height: 1.12;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <main id="content">
+    <h1>quer sair comigo brunão?</h1>
+    <div class="buttons">
+      <button id="yesButton" type="button">sim</button>
+      <button id="noButton" type="button" tabindex="-1" aria-disabled="true">não</button>
+    </div>
+  </main>
+
+  <script>
+    const content = document.getElementById('content');
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+
+    function moveNoButton() {
+      const padding = 16;
+      const maxX = window.innerWidth - noButton.offsetWidth - padding;
+      const maxY = window.innerHeight - noButton.offsetHeight - padding;
+      const x = Math.max(padding, Math.random() * maxX);
+      const y = Math.max(padding, Math.random() * maxY);
+
+      noButton.style.left = `${x}px`;
+      noButton.style.top = `${y}px`;
+      noButton.style.position = 'fixed';
+    }
+
+    noButton.addEventListener('mouseenter', moveNoButton);
+    noButton.addEventListener('mousedown', (event) => {
+      event.preventDefault();
+      moveNoButton();
+    });
+    noButton.addEventListener('click', (event) => {
+      event.preventDefault();
+      moveNoButton();
+    });
+    noButton.addEventListener('touchstart', (event) => {
+      event.preventDefault();
+      moveNoButton();
+    });
+
+    yesButton.addEventListener('click', () => {
+      content.innerHTML = '<div class="message">obrigado mas eu gosto de garotas, desculpa</div>';
+    });
+  </script>
+</body>
+</html>
